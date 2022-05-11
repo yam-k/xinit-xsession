@@ -1,0 +1,98 @@
+#+author: yam-k
+
+* 作業用ディレクトリの作成
+#+begin_src bash
+  mkdir xinit-xsession
+  cd xinit-xsession
+#+end_src
+
+* 作業用ディレクトリをgit管理下に
+#+begin_src bash
+  git init -b debian/latest
+  git commit --allow-empty -m "Initial commit"
+#+end_src
+
+* 上流リポジトリのマージ
+#+begin_src bash
+git remote add -f upstream https://aur.archlinux.org/xinit-xsession.git
+git checkout -b upstream upstream/master
+git tag upstream/1.3
+git checkout debian/latest
+git merge --allow-unrelated-histories upstream
+#+end_src
+
+* =dh_make= の実行
+#+begin_src bash
+  dh_make --createorig -p xinit-xsession_1.3 -c gpl3 -s -y
+#+end_src
+
+* =debian/= 以下のファイルを編集
+** 不用ファイルの削除
+#+begin_src bash
+  rm debian/R*
+  rm debian/m*
+  rm debian/p*
+  rm debian/salsa-ci.yml.ex
+  rm debian/watch.ex
+  rm deiban/x*
+#+end_src
+
+** =debian/changelog=
+変更箇所のみ
+#+begin_example
+  ,* Initial release
+#+end_example
+
+** =debian/control=
+変更箇所のみ
+#+begin_example
+  Section: x11
+  Homepage: https://aur.archlinux.org/packages/xinit-xsession
+  Vcs-Browser: https://github.com/yam-k/xinit-xsession
+  Vcs-Git: https://github.com/yam-k/xinit-xsession.git
+  Description: Allows ~/.xinitrc to be run as a session
+   Allows ~/.xinitrc to be run as a session from your display manager.
+#+end_example
+
+** =debian/copyright=
+変更箇所のみ
+#+begin_example
+Upstream-Contact: Dave Brown <d.brown@bigdavedev.com>
+Source: https://aur.archlinux.org/packages/xinit-xsession
+Copyright: 2015- Jeandre Henderson
+           2019- David Brown
+#+end_example
+
+** =debian/install=
+#+begin_example
+  xinitrc.desktop usr/share/xsessions
+  xinitrcsession-helper usr/bin
+#+end_example
+
+** =debian/gbp.conf=
+#+begin_example
+  [DEFAULT]
+  debian-branch = debian/latest
+#+end_example
+
+* =debian/= のコミット
+#+begin_src bash
+  git add debian/
+  git commit -m "created debian directory"
+#+end_src
+
+* パッケージビルド
+#+begin_src bash
+  gbp buildpackage -us -uc
+#+end_src
+
+* ビルド前に復元
+#+begin_src bash
+  git clean -df
+#+end_src
+
+* タグ付け
+#+begin_src bash
+  gbp buildpackage --git-tag-only
+#+end_src
+ここでリモートにプッシュする。
