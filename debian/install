@@ -1,2 +1,2 @@
-xinitrc.session usr/share/xsessions
+xinitrc.desktop usr/share/xsessions
 xinitrcsession-helper usr/bin
