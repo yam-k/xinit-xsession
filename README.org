@@ -14,7 +14,7 @@ AURにある[[https://aur.archlinux.org/packages/xinit-xsession][xinit-xsession]
 
 * アンインストール
 #+begin_src bash
-  sudo apt purge ./xinit-xsession_<バージョン>.deb
+  sudo apt purge xinit-xsession
 #+end_src
 
 または
