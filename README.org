@@ -1,0 +1,30 @@
+#+title: README
+
+AURにある[[https://aur.archlinux.org/packages/xinit-xsession][xinit-xsession]]をdebパッケージにしてみた。
+
+* インストール
+#+begin_src bash
+  sudo apt install ./xinit-xsession_<バージョン>.deb
+#+end_src
+
+または
+#+begin_src bash
+  sudo make install
+#+end_src
+
+* アンインストール
+#+begin_src bash
+  sudo apt purge ./xinit-xsession_<バージョン>.deb
+#+end_src
+
+または
+#+begin_src bash
+  sudo make uninstall
+#+end_src
+
+* =~/.xinitrc= について
+実行権限が付与されていないといけないので、
+#+begin_src bash
+  chmod +x ~/.xinitrc
+#+end_src
+とする。
