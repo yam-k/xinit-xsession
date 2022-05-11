@@ -1,0 +1,16 @@
+Source: xinit-xsession
+Section: x11
+Priority: optional
+Maintainer: yam-k <unknown>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.0
+Homepage: https://aur.archlinux.org/packages/xinit-xsession
+Vcs-Browser: https://github.com/yam-k/xinit-xsession
+Vcs-Git: https://github.com/yam-k/xinit-xsession.git
+Rules-Requires-Root: no
+
+Package: xinit-xsession
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Allows ~/.xinitrc to be run as a session
+ Allows ~/.xinitrc to be run as a session from your display manager.
